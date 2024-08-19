@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: tetris
-        image: ashenjay/sms:latest
+        image: ashenjay/sms-java:latest
         ports:
         - containerPort: 3000   # Use port 3000
 
