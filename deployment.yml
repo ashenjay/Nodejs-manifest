@@ -1,35 +1,35 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tetris
+  name: bloggingapp-deployment
 spec:
-  replicas: 3
   selector:
     matchLabels:
-      app: tetris
+      app: bloggingapp
+  replicas: 2
   template:
     metadata:
       labels:
-        app: tetris
+        app: bloggingapp
     spec:
       containers:
-      - name: tetris
-        image: sevenjay/amazon:latest
-        ports:
-        - containerPort: 3000   # Use port 3000
-
+        - name: bloggingapp
+          image: ashenjay/sms-app:latest # Updated image to private DockerHub image
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred # Reference to the Docker registry secret
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tetris-service
+  name: bloggingapp-ssvc
 spec:
   selector:
-    app: tetris
+    app: bloggingapp
   ports:
-  - protocol: TCP
-    port: 80                 # Expose port 80
-    targetPort: 3000
+    - protocol: "TCP"
+      port: 80
+      targetPort: 8080 
   type: LoadBalancer
-
