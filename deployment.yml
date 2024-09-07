@@ -31,4 +31,5 @@ spec:
   - protocol: TCP
     port: 80                 # Expose port 80
     targetPort: 3000
-  type: LoadBalancer
+    nodePort: 30080          # NodePort (can be any port in the 30000-32767 range)
+  type: NodePort             # External access via NodePort
